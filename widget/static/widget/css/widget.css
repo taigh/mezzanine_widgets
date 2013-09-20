@@ -1,4 +1,6 @@
-.widget-toolbar{margin-bottom: 5px;}
+.widget-toolbar{
+    padding: 5px;
+}
 /*.widget_holder{border-bottom: #2D2D2D solid thick;}*/
 /* FORM consistent with mezzanine editable form, Should really be a general frontend admin form layout */
 
@@ -30,14 +32,18 @@
 }
 
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
-.widget-sortable { float:left; margin-right:20px;}
-
 /*body { color:white; font-family:Helvetica, sans-serif; text-shadow:1px 1px 1px rgba(0,0,0,0.2); }*/
-.widget-sortable { overflow:hidden; border-radius:6px; }
-.widget_holder { display:block; position:relative; z-index:1; }
-.widget_holder:after {display:block; position:absolute; height:100%; width:100%; top:0px; left:0px; content:' '; border-radius:6px; z-index:-1; }
+.widget-sortable {
+    overflow:hidden;
+}
+.widget_holder {
+    display:block;
+    position:relative;
+    z-index:1;
+    border-top: 1px dotted #aaa;
+    padding: 4px;
+}
 
-.widget_holder { -moz-transition:border-top-width 0.1s ease-in; -webkit-transition:border-top-width 0.1s ease-in; border-top:0px solid rgba(0,0,0,0); }
 .marker {
     width:100%;
     float:left;
@@ -48,7 +54,17 @@
 }
 .placeholder {
     width: 100%;
-    /*margin: -2px;*/
     background: #717ca1;
     height: 1em;
+}
+.widget-item-toolbar{
+    width: 100%;
+    height: 18px;
+    line-height: 18px;
+    margin: 0;
+}
+
+.widget-wrapper{
+    border-radius: 4px;
+    border: 1px dotted #aaa;
 }

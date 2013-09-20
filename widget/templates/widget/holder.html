@@ -3,40 +3,46 @@
 
 
 <div class="widget-wrapper" id="{{ slot }}">
-    {% if perms.widget.can_add %} 
+    {% if perms.widget.can_add %}
         <div class="widget-toolbar">
            {% if page %}
             <a class="widget-add-link label-success label" href="#" rel="#widget-form">{% trans "Add Widget" %}</a>
            {% endif %}
         </div>
     {% endif %}
-        <div class="widget-sortable" style="  padding: 5px; width:100%" >
+        <div class="widget-sortable">
             {% if widgets and contains_widgets %}
                 {% for w in widgets %}
                     {% if perms.widget.can_change or perms.widget.can_delete  %}
-                    <div id="ordering_{{ w.widget.id }}{#{ w.meta.name|force_escape}#}" class="widget_holder" style="position:relative;">
-
-
-                        <div class="btn-toolbar widget-item-toolbar btn-group">
+                    <div id="ordering_{{ w.widget.id }}{#{ w.meta.name|force_escape}#}" class="widget_holder">
+                        <div class="widget-item-toolbar">
                             {% if perms.widget.can_change %}
-                                <a id="ew-{{ w.widget.id }}-edit" class="widget-edit-link" href="#"  rel="#edit-widget-form"  data-original-title="Edit {{ w.meta.name }}"><i class="icon-edit"></i></a>
+                            <span>
+                                <a id="ew-{{ w.widget.id }}-edit" class="widget-edit-link" href="#"  rel="#edit-widget-form"  data-original-title="Edit {{ w.meta.name }}"><div class="icon-edit"></div></a>
+                            </span>
                                 {% if w.widget.status == 2 %}
-                                    <a id="ew-{{ w.widget.id }}-edit" class="widget-publish-link" href="#"   data-original-title="Unpublish this {{ w.meta.name }}"><i class="icon-chevron-down"></i></a>
+                            <span>
+                                <a id="ew-{{ w.widget.id }}-publish" class="widget-publish-link" href="#" data-metaname="{{w.meta.name}}" data-original-title="Unpublish this {{ w.meta.name }}"><div class="icon-chevron-down"></div></a>
+                            </span>
                                 {% else %}
-                                    <a id="ew-{{ w.widget.id }}-edit" class="widget-publish-link" href="#" data-original-title="Publish this {{ w.meta.name }}" ><i class="icon-chevron-up"></i></a>
+                            <span>
+                                <a id="ew-{{ w.widget.id }}-publish" class="widget-publish-link" href="#" data-metaname="{{w.meta.name}}" data-original-title="Publish this {{ w.meta.name }}" ><div class="icon-chevron-up"></div></a>
+                            </span>
                                 {% endif %}
                             {% endif %}
                             {% if perms.widget.can_delete %}
-                                <a id="dw-{{ w.widget.id }}-delete" class="widget-delete-link"  href="{% url "delete_widget" w.widget.id %}?next={{request.path}}"><i class="icon-remove"></i></a>
+                            <span>
+                                <a id="dw-{{ w.widget.id }}-delete" class="widget-delete-link"  href="{% url "delete_widget" w.widget.id %}?next={{request.path}}" data-original-title="Delete this {{ w.meta.name }}"><div class="icon-remove"></div></a>
+                            </span>
                             {% endif %}
                             {% if perms.widget.can_change %}
                             <span class="ordering" style="float:right;">
-                                <i class="tools icon-move" {#style="position: absolute;top: 0;right: 0;"#}></i>
+                                <div class="tools icon-move" {#style="position: absolute;top: 0;right: 0;"#}></div>
                             </span>
                             {% endif %}
                         </div>
                         {% endif %}
-                        <div id="{{ w.meta.name|force_escape|lower}}-widget-content">
+                        <div id="{{ w.meta.name|slugify|lower}}-widget-content">
                             {{ w.content|safe }}
                         </div>
                     {% if perms.widget.can_change or perms.widget.can_delete  %}

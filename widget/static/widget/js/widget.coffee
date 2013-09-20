@@ -2,8 +2,8 @@ class @WidgetAdmin
   @options_forms: {}
   @options: {}
   widget_status_icon_toggle: {
-    2: {"ico":"icon-chevron-up", "message": "Published", "prefix": "Unpublish"},
-    1: {"ico":"icon-chevron-down", "messsage": "Unpublished", "prefix":"Publish"}
+    1: {"ico":"icon-chevron-up", "message": "Published", "prefix": "Unpublish"},
+    2: {"ico":"icon-chevron-down", "messsage": "Unpublished", "prefix":"Publish"}
   }
 
   constructor: (options) ->
@@ -16,7 +16,9 @@ class @WidgetAdmin
 
         )
     #some neccessary jq config
-    $(".widget-edit-link, .widget-delete-link").tooltip {placement:"right"}
+    $(".widget-edit-link").tooltip {placement:"right"}
+    $(".widget-delete-link").tooltip {placement:"right"}
+    $(".widget-publish-link").tooltip {placement:"right"}
     @setupAdmin()
     @setupWidgetForms()
     @setupSortableWidgets()
@@ -68,33 +70,27 @@ class @WidgetAdmin
           widget_title = target.parentElement.parentElement.parentElement.id
           that.onEditForm(target, widget_id, widget_title)
         overlay = {onBeforeLoad: onBeforeLoad, closeOnEsc: true, expose: expose, closeOnClick: true, close: ':button'}
-        $link.overlay(overlay) 
+        $link.overlay(overlay)
     )
     @
 
   setupWidgetStatusHandler: =>
     status_icons = @widget_status_icon_toggle
-    $(".widget-publish-link").tooltip {
-      placement:"right",
-      title: () ->
-        widget_status = @id.split("-")[-1..][0]
-        return status_icons[widget_status]["prefix"]
-    }
     $(".widget-publish-link").on("click", ((e) =>
       id_split = e.currentTarget.id.split("-")
       widget_id = id_split[1]
-      widget_title = $(e.currentTarget).attr('data-original-title')
       callback = (data) =>
         if data.status == true
-#          icon = $("#" + e.currentTarget.id + " i")
-          icon = e.currentTarget.getElementsByTagName("i")[0]
+          icon = e.currentTarget.getElementsByTagName("div")[0]
           toggle = @widget_status_icon_toggle[data.published]
           new_class = toggle["ico"]
           icon.className = new_class
-          old_id = e.currentTarget.id
-          new_id = old_id[...-1] + data.published
-          e.currentTarget.id = new_id
-
+          target = $(e.currentTarget)
+          setTimeout(() =>
+            target.tooltip('destroy')
+            target.attr("title", toggle["prefix"]+" this "+ target.data("metaname"))
+          target.tooltip {placement: 'right'}
+          100,)
       @remoteCall(e.currentTarget, @options.status_url, {"id":widget_id}, callback)
       e.preventDefault()
     ))
@@ -128,7 +124,7 @@ class @WidgetAdmin
         if not data
           alert("Error occured: " + data + "\nWidget ordering wasn't updated.");
 
-      ) 
+      )
     stylesheet = $('style[name=impostor_size]')[0].sheet
     `rule = stylesheet.rules ? stylesheet.rules[0].style : stylesheet.cssRules[0].style`
     setPadding = (atHeight) ->
