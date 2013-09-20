@@ -23,6 +23,7 @@ class @WidgetAdmin
     @setupWidgetForms()
     @setupSortableWidgets()
     @setupWidgetStatusHandler()
+    @setupWidgetDeleter()
     @
 
   setupAdmin: () =>
@@ -94,6 +95,22 @@ class @WidgetAdmin
       @remoteCall(e.currentTarget, @options.status_url, {"id":widget_id}, callback)
       e.preventDefault()
     ))
+    @
+
+  setupWidgetDeleter: =>
+    $(".widget-delete-link").on("click", ((e) =>
+      id_split = e.currentTarget.id.split("-")
+      widget_id = id_split[1]
+      callback = () =>
+        widget_container = $("#ordering_"+widget_id)
+        widget_container.fadeOut(500, () =>
+          widget_container.remove()
+        )
+      @remoteCall(e.currentTarget, @options.delete_url, {"id":widget_id}, callback)
+      e.preventDefault()
+    ))
+
+
 
   setupSortableWidgets: ->
     # AJAX callback that's triggered when dragging a widget to re-order

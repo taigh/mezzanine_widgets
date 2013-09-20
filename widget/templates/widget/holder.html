@@ -32,7 +32,7 @@
                             {% endif %}
                             {% if perms.widget.can_delete %}
                             <span>
-                                <a id="dw-{{ w.widget.id }}-delete" class="widget-delete-link"  href="{% url "delete_widget" w.widget.id %}?next={{request.path}}" data-original-title="Delete this {{ w.meta.name }}"><div class="icon-remove"></div></a>
+                                <a id="dw-{{ w.widget.id }}-delete" class="widget-delete-link"  href="#" data-original-title="Delete this {{ w.meta.name }}"><div class="icon-remove"></div></a>
                             </span>
                             {% endif %}
                             {% if perms.widget.can_change %}

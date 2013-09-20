@@ -20,6 +20,7 @@ this.WidgetAdmin = (function() {
   };
 
   function WidgetAdmin(options) {
+    this.setupWidgetDeleter = __bind(this.setupWidgetDeleter, this);
     this.setupWidgetStatusHandler = __bind(this.setupWidgetStatusHandler, this);
     this.setupWidgetForms = __bind(this.setupWidgetForms, this);
     this.setupAdmin = __bind(this.setupAdmin, this);
@@ -42,6 +43,7 @@ this.WidgetAdmin = (function() {
     this.setupWidgetForms();
     this.setupSortableWidgets();
     this.setupWidgetStatusHandler();
+    this.setupWidgetDeleter();
     this;
   }
 
@@ -124,7 +126,7 @@ this.WidgetAdmin = (function() {
     var status_icons,
       _this = this;
     status_icons = this.widget_status_icon_toggle;
-    return $(".widget-publish-link").on("click", (function(e) {
+    $(".widget-publish-link").on("click", (function(e) {
       var callback, id_split, widget_id;
       id_split = e.currentTarget.id.split("-");
       widget_id = id_split[1];
@@ -145,6 +147,27 @@ this.WidgetAdmin = (function() {
         }
       };
       _this.remoteCall(e.currentTarget, _this.options.status_url, {
+        "id": widget_id
+      }, callback);
+      return e.preventDefault();
+    }));
+    return this;
+  };
+
+  WidgetAdmin.prototype.setupWidgetDeleter = function() {
+    var _this = this;
+    return $(".widget-delete-link").on("click", (function(e) {
+      var callback, id_split, widget_id;
+      id_split = e.currentTarget.id.split("-");
+      widget_id = id_split[1];
+      callback = function() {
+        var widget_container;
+        widget_container = $("#ordering_" + widget_id);
+        return widget_container.fadeOut(500, function() {
+          return widget_container.remove();
+        });
+      };
+      _this.remoteCall(e.currentTarget, _this.options.delete_url, {
         "id": widget_id
       }, callback);
       return e.preventDefault();

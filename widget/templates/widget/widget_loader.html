@@ -57,8 +57,8 @@
             }
         });
 
-        var WidgetController = new WidgetAdmin( {ordering_url: "{% url "widget_ordering" %}", 
-            status_url: "{% url "widget_status" %}"} ); 
+        var WidgetController = new WidgetAdmin( {ordering_url: "{% url "widget_ordering" %}",
+            status_url: "{% url "widget_status" %}", delete_url: "{% url "delete_widget" %}"} );
     });
 </script>
 

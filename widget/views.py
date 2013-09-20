@@ -199,21 +199,18 @@ def create_widget(request, **kwargs):
 create_widget = require_POST(create_widget)
 
 
+
 @login_required
+@require_http_methods(["POST"])
 @admin_can(Widget, action="delete")
-def delete_widget(request, id):
-    data = {'valid': False}
-    next = request.GET.get("next", "/")
+def delete_widget(request):
     try:
+        id = request.POST["id"]
         obj = Widget.objects.get(id=id)
         obj.delete()
-        data = {'valid': True}
+        return HttpResponse()
     except Exception:
-        pass
-#    return HttpResponse(json_serializer.encode(data), \
-#                        mimetype='application/json')
-    print "delete!", next
-    return HttpResponseRedirect(next)
+        return HttpResponseBadRequest()
 
 
 @login_required
