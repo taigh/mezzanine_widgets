@@ -15,7 +15,7 @@ from mezzanine.pages.models import Page
 from widget.fields import PageWidgetClass
 
 from django.db.models import Q
-from mezzanine.utils.timezone import now
+from django.utils.timezone import now
 
 
 class WidgetOption(object):
@@ -39,7 +39,7 @@ class WidgetClassBase(object):
     """
     editableFields = ""
     template = None
-    raw = False 
+    raw = False
 
     def _render(self, context, slot, queryset=None, options=None):
         """
@@ -146,7 +146,7 @@ class Widget(Orderable, Ownable, SiteRelated):
         widg = get_widget(self.widget_class)
         if hasattr(widg, 'Meta'):
             self.author = widg.Meta.author
-            if hasattr(widg.Meta, 'page_less'): 
+            if hasattr(widg.Meta, 'page_less'):
                 self.page_less = widg.Meta.page_less
                 self.page = None
         else:
@@ -196,7 +196,7 @@ class Widget(Orderable, Ownable, SiteRelated):
     class Meta:
         verbose_name = _("Widget")
         verbose_name_plural = _("Widgets")
-        ordering = ("display_title",) 
+        ordering = ("display_title",)
 
 
 class WidgetOptionGroup(SiteRelated):
