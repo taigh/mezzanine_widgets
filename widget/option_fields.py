@@ -27,6 +27,8 @@ NUMBER = 13
 URL = 14
 RICHTEXTAREA = 15
 IMAGE = 16
+MODEL_SELECT = 17
+
 
 # Names for all available field types.
 NAMES = (
@@ -46,6 +48,7 @@ NAMES = (
     (HIDDEN, _("Hidden")),
     (RICHTEXTAREA, _("Multi line text")),
     (IMAGE, _("Image")),
+    (MODEL_SELECT, _("Model Select")),
     )
 
 # Field classes for all available field types.
@@ -57,6 +60,7 @@ CLASSES = {
     CHECKBOX: forms.BooleanField,
     CHECKBOX_MULTIPLE: forms.MultipleChoiceField,
     SELECT: forms.ChoiceField,
+    MODEL_SELECT: forms.ModelChoiceField,
     SELECT_MULTIPLE: forms.MultipleChoiceField,
     RADIO_MULTIPLE: forms.ChoiceField,
     FILE: forms.FileField,
@@ -88,7 +92,7 @@ except AttributeError:
 
 # Some helper groupings of field types.
 CHOICES = (CHECKBOX, CHECKBOX_MULTIPLE, SELECT,
-           SELECT_MULTIPLE, RADIO_MULTIPLE)
+           SELECT_MULTIPLE, RADIO_MULTIPLE, MODEL_SELECT)
 DATES = (DATE, DATE_TIME)
 MULTIPLE = (CHECKBOX_MULTIPLE, SELECT_MULTIPLE)
 
