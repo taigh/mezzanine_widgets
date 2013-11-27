@@ -1,6 +1,6 @@
 {% if request.user.is_staff %}
 {% load compress %}
-{% compress "js" %}
+{% compress js %}
 <script type="text/javascript"
     src="{{ STATIC_URL }}widget/js/underscore.min.js">
 </script>
@@ -62,7 +62,7 @@
     });
 </script>
 {% endcompress %}
-{% compress "css" %}
+{% compress css %}
 <style name="impostor_size">
     .marker + div { border-top-width:0px; }
 </style>
