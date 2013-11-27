@@ -18,26 +18,26 @@
                         <div class="widget-item-toolbar">
                             {% if perms.widget.can_change %}
                             <span>
-                                <a id="ew-{{ w.widget.id }}-edit" class="widget-edit-link" href="#"  rel="#edit-widget-form"  data-original-title="Edit {{ w.meta.name }}"><div class="icon-edit"></div></a>
+                                <a id="ew-{{ w.widget.id }}-edit" class="widget-edit-link" href="#"  rel="#edit-widget-form"  data-original-title="Edit {{ w.meta.name }}"><div class="glyphicon glyphicon-edit"></div></a>
                             </span>
                                 {% if w.widget.status == 2 %}
                             <span>
-                                <a id="ew-{{ w.widget.id }}-publish" class="widget-publish-link" href="#" data-metaname="{{w.meta.name}}" data-original-title="Unpublish this {{ w.meta.name }}"><div class="icon-chevron-down"></div></a>
+                                <a id="ew-{{ w.widget.id }}-publish" class="widget-publish-link" href="#" data-metaname="{{w.meta.name}}" data-original-title="Unpublish this {{ w.meta.name }}"><div class="glyphicon glyphicon-chevron-down"></div></a>
                             </span>
                                 {% else %}
                             <span>
-                                <a id="ew-{{ w.widget.id }}-publish" class="widget-publish-link" href="#" data-metaname="{{w.meta.name}}" data-original-title="Publish this {{ w.meta.name }}" ><div class="icon-chevron-up"></div></a>
+                                <a id="ew-{{ w.widget.id }}-publish" class="widget-publish-link" href="#" data-metaname="{{w.meta.name}}" data-original-title="Publish this {{ w.meta.name }}" ><div class="glyphicon glyphicon-chevron-up"></div></a>
                             </span>
                                 {% endif %}
                             {% endif %}
                             {% if perms.widget.can_delete %}
                             <span>
-                                <a id="dw-{{ w.widget.id }}-delete" class="widget-delete-link"  href="#" data-original-title="Delete this {{ w.meta.name }}"><div class="icon-remove"></div></a>
+                                <a id="dw-{{ w.widget.id }}-delete" class="widget-delete-link"  href="#" data-original-title="Delete this {{ w.meta.name }}"><div class="glyphicon glyphicon-remove"></div></a>
                             </span>
                             {% endif %}
                             {% if perms.widget.can_change %}
                             <span class="ordering" style="float:right;">
-                                <div class="tools icon-move" {#style="position: absolute;top: 0;right: 0;"#}></div>
+                                <div class="tools glyphicon glyphicon-move" {#style="position: absolute;top: 0;right: 0;"#}></div>
                             </span>
                             {% endif %}
                         </div>
