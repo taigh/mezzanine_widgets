@@ -63,11 +63,12 @@
 </script>
 {% endcompress %}
 {% compress css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}widget/css/widget.css">
+{% endcompress %}
+
 <style name="impostor_size">
     .marker + div { border-top-width:0px; }
 </style>
-<link rel="stylesheet" href="{{ STATIC_URL }}widget/css/widget.css">
-{% endcompress %}
 
 {% include "widget/widget_form.html" %}
 {% endif %}
