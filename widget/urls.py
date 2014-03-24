@@ -1,5 +1,4 @@
-from django.conf.urls.defaults import *
-
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('widget.views',
     url(r'^create/$', "create_widget", name="create_widget"),

@@ -52,6 +52,9 @@ class RenderWidgets(InclusionTag):
     def get_context(self, context, slot):
         page = context.get('page', None)
 
+        if context.has_key("slot"):
+            slot = "%s/%s" % (context["slot"], slot)
+
         context['slot'] = slot
         user = context['request'].user
         rendered = render_widgets_for_slot(slot, context)

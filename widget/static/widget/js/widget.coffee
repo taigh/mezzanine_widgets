@@ -2,8 +2,8 @@ class @WidgetAdmin
   @options_forms: {}
   @options: {}
   widget_status_icon_toggle: {
-    1: {"ico":"icon-chevron-up", "message": "Published", "prefix": "Unpublish"},
-    2: {"ico":"icon-chevron-down", "messsage": "Unpublished", "prefix":"Publish"}
+    1: {"ico":"glyphicon glyphicon-chevron-up", "message": "Published", "prefix": "Unpublish"},
+    2: {"ico":"glyphicon glyphicon-chevron-down", "messsage": "Unpublished", "prefix":"Publish"}
   }
 
   constructor: (options) ->
@@ -46,16 +46,14 @@ class @WidgetAdmin
 
   setupWidgetForms: () =>
     $("#widget-form").adminForm({preSubmit: @preSubmit, resultParsed: @resultParsed})
-    expose = {color: "#333", loadSpeed: 200, opacity: 0.9}
     $.each($('.widget-add-link'), (i) ->
         link = $(this)
-        onBeforeLoad = () ->
-        #set the forms slot input to the current widgetslot
+        link.click(()->
           slot_field = $("#widget-form").find("input[name=widgetslot]").get(0)
           slot_name = link.parents(".widget-wrapper").attr("id")
           slot_field.value = slot_name
-        overlay = {onBeforeLoad: onBeforeLoad, closeOnEsc: true, expose: expose, closeOnClick: true, close: ':button'}
-        link.overlay(overlay)
+          $("#widget-form").modal();
+        )
     )
 
     #Setup Edit Form for ajax post submission
@@ -66,12 +64,12 @@ class @WidgetAdmin
     $.each($('.widget-edit-link'), (i) ->
         $link = $(this)
         target = $(this)[0]
-        onBeforeLoad = () ->
+        $link.click(()->
           widget_id = target.id.split("-")[1]
           widget_title = target.parentElement.parentElement.parentElement.id
           that.onEditForm(target, widget_id, widget_title)
-        overlay = {onBeforeLoad: onBeforeLoad, closeOnEsc: true, expose: expose, closeOnClick: true, close: ':button'}
-        $link.overlay(overlay)
+          $("#edit-widget-form").modal();
+        )
     )
     @
 
